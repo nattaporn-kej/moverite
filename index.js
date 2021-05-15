@@ -28,7 +28,7 @@ const ifNotLoggedin = (req, res, next) => {
 }
 const ifLoggedin = (req,res,next) => {
     if(req.session.isLoggedIn){
-        return res.redirect('/home');
+        return res.redirect('/home-default');
     }
     next();
 }
@@ -37,7 +37,7 @@ const ifLoggedin = (req,res,next) => {
 app.get('/', ifNotLoggedin, (req,res,next) => {
     dbConnection.execute("SELECT `name` FROM `users` WHERE `id`=?",[req.session.userID])
     .then(([rows]) => {
-        res.render('home',{
+        res.render('home-default',{
             name:rows[0].name
         });
     });
@@ -151,13 +151,344 @@ app.post('/', ifLoggedin, [
     }
 });
 // END OF LOGIN PAGE
+app.get('/newhot', (req,res) => {
+    res.render('newhot');
+})
+app.get('/home', (req,res) => {
+    res.render('home');
+})
+app.get('/ctg', (req,res) => {
+    res.render('ctg');
+})
+app.get('/hot', (req,res) => {
+    res.render('hot');
+})
+app.get('/interest', (req,res) => {
+    res.render('interest');
+})
+app.get('/profile-aladdin', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+         .then(([rows]) => {
+             res.render('profile-aladdin',{
+                 name:rows[0].Name,
+                 syn:rows[0].Synopsis,
+                 pName:rows[0].publisherName,
+                 Lname:rows[0].LeadActor,
+                 genre:rows[0].GenreName
+             });
+         });    
+ })
+ app.get('/profile-aot', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+         .then(([rows]) => {
+             res.render('profile-aot',{
+                 name:rows[1].Name,
+                 syn:rows[1].Synopsis,
+                 pName:rows[1].publisherName,
+                 Lname:rows[1].LeadActor,
+                 genre:rows[1].GenreName
+             });
+         });   
+ })
+ app.get('/profile-avengers', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+         .then(([rows]) => {
+             res.render('profile-avengers',{
+                 name:rows[2].Name,
+                 syn:rows[2].Synopsis,
+                 pName:rows[2].publisherName,
+                 Lname:rows[2].LeadActor,
+                 genre:rows[2].GenreName
+             });
+         });   
+ })
+ app.get('/profile-beauty', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+         .then(([rows]) => {
+             res.render('profile-beauty',{
+                 name:rows[3].Name,
+                 syn:rows[3].Synopsis,
+                 pName:rows[3].publisherName,
+                 Lname:rows[3].LeadActor,
+                 genre:rows[3].GenreName
+             });
+         });  
+ })
+app.get('/profile-demon', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-demon',{
+            name:rows[4].Name,
+            syn:rows[4].Synopsis,
+            pName:rows[4].publisherName,
+            Lname:rows[4].LeadActor,
+            genre:rows[4].GenreName
+        });
+    });  
+})
+app.get('/profile-fanta', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-fanta',{
+            name:rows[5].Name,
+            syn:rows[5].Synopsis,
+            pName:rows[5].publisherName,
+            Lname:rows[5].LeadActor,
+            genre:rows[5].GenreName
+        });
+    });  
+})
+app.get('/profile-frozen', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-frozen',{
+            name:rows[7].Name,
+            syn:rows[7].Synopsis,
+            pName:rows[7].publisherName,
+            Lname:rows[7].LeadActor,
+            genre:rows[7].GenreName
+        });
+    });  
+})
+app.get('/profile-godf', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-godf',{
+            name:rows[16].Name,
+            syn:rows[16].Synopsis,
+            pName:rows[16].publisherName,
+            Lname:rows[16].LeadActor,
+            genre:rows[16].GenreName
+        });
+    }); 
+})
+app.get('/profile-godzi', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-godzi',{
+            name:rows[8].Name,
+            syn:rows[8].Synopsis,
+            pName:rows[8].publisherName,
+            Lname:rows[8].LeadActor,
+            genre:rows[8].GenreName
+        });
+    }); 
+})
+app.get('/profile-gump', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-gump',{
+            name:rows[6].Name,
+            syn:rows[6].Synopsis,
+            pName:rows[6].publisherName,
+            Lname:rows[6].LeadActor,
+            genre:rows[6].GenreName
+        });
+    }); 
+})
+app.get('/profile-hei', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-hei',{
+            name:rows[17].Name,
+            syn:rows[17].Synopsis,
+            pName:rows[17].publisherName,
+            Lname:rows[17].LeadActor,
+            genre:rows[17].GenreName
+        });
+    }); 
+})
+app.get('/profile-joker', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-Joker',{
+            name:rows[9].Name,
+            syn:rows[9].Synopsis,
+            pName:rows[9].publisherName,
+            Lname:rows[9].LeadActor,
+            genre:rows[9].GenreName
+        });
+    }); 
+})
+app.get('/profile-lala', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-lala',{
+            name:rows[10].Name,
+            syn:rows[10].Synopsis,
+            pName:rows[10].publisherName,
+            Lname:rows[10].LeadActor,
+            genre:rows[10].GenreName
+        });
+    });
+})
+app.get('/profile-me', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-me',{
+            name:rows[12].Name,
+            syn:rows[12].Synopsis,
+            pName:rows[12].publisherName,
+            Lname:rows[12].LeadActor,
+            genre:rows[12].GenreName
+        });
+    });
+})
+app.get('/profile-myhero', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-myhero',{
+            name:rows[13].Name,
+            syn:rows[13].Synopsis,
+            pName:rows[13].publisherName,
+            Lname:rows[13].LeadActor,
+            genre:rows[13].GenreName
+        });
+    });
+})
+app.get('/profile-raya', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-raya',{
+            name:rows[14].Name,
+            syn:rows[14].Synopsis,
+            pName:rows[14].publisherName,
+            Lname:rows[14].LeadActor,
+            genre:rows[14].GenreName
+        });
+    });
+})
+app.get('/profile-shaw', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-shaw',{
+            name:rows[18].Name,
+            syn:rows[18].Synopsis,
+            pName:rows[18].publisherName,
+            Lname:rows[18].LeadActor,
+            genre:rows[18].GenreName
+        });
+    });
+})
+app.get('/profile-spirit', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-spirit',{
+            name:rows[15].Name,
+            syn:rows[15].Synopsis,
+            pName:rows[15].publisherName,
+            Lname:rows[15].LeadActor,
+            genre:rows[15].GenreName
+        });
+    });
+})
+app.get('/profile-template', (req,res) => {
+    res.render('profile-template');
+})
+app.get('/profile-titanic', (req,res) =>{
+   dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-titanic',{
+            name:rows[19].Name,
+            syn:rows[19].Synopsis,
+            pName:rows[19].publisherName,
+            Lname:rows[19].LeadActor,
+            genre:rows[19].GenreName
+        });
+    });    
+})
+app.get('/profile-women', (req,res) => {
+    dbConnection.execute("SELECT * FROM `movie` JOIN `publisher` ON movie.PublisherID = publisher.publisherId JOIN  `genre_of` ON movie.MovieID = genre_of.MovieID",[req.session])
+    .then(([rows]) => {
+        res.render('profile-women',{
+            name:rows[11].Name,
+            syn:rows[11].Synopsis,
+            pName:rows[11].publisherName,
+            Lname:rows[11].LeadActor,
+            genre:rows[11].GenreName
+        });
+    }); 
+})
+app.get('/recommend', (req,res) => {
+    res.render('recommend');
+})
 
+app.get('/template', (req,res) => {
+    res.render('template');
+})
+app.get('/trailer-aladdin', (req,res) => {
+    res.render('trailer-aladdin');
+})
+app.get('/trailer-aot', (req,res) => {
+    res.render('trailer-aot');
+})
+app.get('/trailer-avengers', (req,res) => {
+    res.render('trailer-avengers');
+})
+app.get('/trailer-beauty', (req,res) => {
+    res.render('trailer-beauty');
+})
+app.get('/trailer-demon', (req,res) => {
+    res.render('trailer-demon');
+})
+app.get('/trailer-fanta', (req,res) => {
+    res.render('trailer-fanta');
+})
+app.get('/trailer-frozen', (req,res) => {
+    res.render('trailer-frozen');
+})
+app.get('/trailer-godf', (req,res) => {
+    res.render('trailer-godf');
+})
+app.get('/trailer-godzi', (req,res) => {
+    res.render('trailer-godzi');
+})
+app.get('/trailer-gump', (req,res) => {
+    res.render('trailer--gump');
+})
+app.get('/trailer-hei', (req,res) => {
+    res.render('trailer-hei');
+})
+app.get('/trailer-joker', (req,res) => {
+    res.render('trailer-joker');
+})
+app.get('/trailer-lala', (req,res) => {
+    res.render('trailer-lala');
+})
+app.get('/trailer-me', (req,res) => {
+    res.render('trailer-me');
+})
+app.get('/trailer-myhero', (req,res) => {
+    res.render('trailer-myhero');
+})
+app.get('/trailer-raya', (req,res) => {
+    res.render('trailer-raya');
+})
+app.get('/trailer-shaw', (req,res) => {
+    res.render('trailer-shaw');
+})
+app.get('/trailer-spirit', (req,res) => {
+    res.render('trailer-spirit');
+})
+app.get('/trailer-template', (req,res) => {
+    res.render('trailer-template');
+})
+app.get('/trailer-titanic', (req,res) => {
+    res.render('trailer-titanic');
+})
+app.get('/trailer-women', (req,res) => {
+    res.render('trailer-women');
+})
+app.get('/watch', (req,res) => {
+    res.render('watch');
+})
 // LOGOUT
 app.get('/logout',(req,res)=>{
     //session destroy
     req.session = null;
     res.redirect('/');
 });
+
 // END OF LOGOUT
 
 app.use('/', (req,res) => {
